@@ -49,6 +49,25 @@ public class BookDao {
 		// selectOne("namespace.id", 파라미터)
 		return this.sqlSessionTemplate.selectOne("book.detail", bookVO);
 	}
+	
+	//책 수정하기
+	//insert ,update, delete의 경우 리턴 타입은 int
+	public int update(BookVO bookVO) {
+		/*
+		 * sqlSessionTemplate 객체의 update 메소드(쿼리ID, 쿼리 파라미터)
+		 * 쿼리ID : 매퍼XML의 namespace.id
+		 * update 구문은 조건에 일치하는 모든 행을 갱신하므로
+		 * 	영향받은 행 수는 0 또는 1 이상. 
+		 */
+		return this.sqlSessionTemplate.update("book.update",bookVO);
+	}
+	
+	//책 삭제
+	public int delete(BookVO bookVO) {
+		//delete 구문도 where 조건에 일치하는 모든 행을 삭제하믈
+		// 영향받은 행 수는 0 또는 1이상.
+		return this.sqlSessionTemplate.delete("book.delete",bookVO);
+	}
 }
 
 

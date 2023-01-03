@@ -107,6 +107,59 @@ public class BookController {
 		mav.setViewName("book/update");
 		return mav;
 	}
+	
+	/*
+	 * {"bookId":2, "title":"수정된제목","category":"수정딘카테고리","price":"10000"}
+	 * VO 객체 매개변수의 경우 골뱅이ModelAttribute를 써줌
+	 */
+	@RequestMapping(value="/update", method=RequestMethod.POST)
+	public ModelAndView update(@ModelAttribute BookVO bookVO,
+			ModelAndView mav) {
+		//BookVO [bookId=2, title=국악, category=음악, price=10000, insertDate=null]
+		log.info("bookVO : " + bookVO.toString());
+		
+		//bookId가 2번인 정보를 수정
+		int result = this.bookService.update(bookVO);
+		
+		if(result>0) { //성공
+			//상세페이지로 이동(redirect : URI 주소 재요청)
+			// /detail?bookId=bookVO의 bookId멤버변수의 값
+			// /detail?bookId=2
+			mav.setViewName("redirect:/detail?bookId="+bookVO.getBookId());
+		}else {//실패
+			mav.setViewName("redirect:/update?bookId="+bookVO.getBookId());
+		}
+		return mav;
+	}
+	
+	//글 삭제, get방식은 위험
+	@RequestMapping(value="/delete", method=RequestMethod.POST)
+	public ModelAndView delete(BookVO bookVO,
+			ModelAndView mav) {
+		log.info("bookVO : " +bookVO.toString());
+		
+		//글 삭제 처리
+		int result = this.bookService.delete(bookVO);
+		//성공 : /list로 redirect
+		if(result>0) {
+			mav.setViewName("redirect:/list");
+		}else {
+			mav.setViewName("redirect:/detail?bookId="+bookVO.getBookId());
+		}
+		//실패 : /detail?bookId=2로 redirect
+		return mav;
+	}
+	
+	//글 목록
+	@RequestMapping(value="/list", method=RequestMethod.GET)
+	public ModelAndView list(ModelAndView mav) {
+		//book폴더의 list.jsp를 해석(list_jsp.java)하고, 컴파일(list_jsp.class)..서블릿
+		//하여 html을 만들어 크롬으로 응답(response)
+		//forwarding
+		mav.setViewName("book/list");
+		
+		return mav;
+	}
 
 }
 

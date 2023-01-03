@@ -26,6 +26,14 @@ JSTL은 maven에서 설정되어있음 => pom.xml(스프링계의 배철수) =>j
    <p> 가격 : ${data.price }</p>
    <p> 입력일 :${data.insertDate } </p>
    <p> <a href="/update?bookId=${bookId}">수정폼</a></p>
+   <p>
+   		<!-- 폼 페이지 -->
+   		<form action="/delete" method="post">
+   			<!-- 폼데이터 -->
+   			<input type="text" name="bookId" value="${bookId}"/>
+   			<input type="submit" value="삭제" />
+   		</form>
+   </p>
    
 </body>
 </html>

@@ -29,6 +29,17 @@ public class BookServiceImpl implements BookService{
 	@Override
 	public BookVO detail(BookVO bookVO) {
 		return this.bookDao.detail(bookVO);
+	}
+	
+	//책 수정하기
+	//insert ,update, delete의 경우 리턴 타입은 int
+	@Override
+	public int update(BookVO bookVO) {
+		return this.bookDao.update(bookVO);
+	}
 
+	@Override
+	public int delete(BookVO bookVO) {
+		return this.bookDao.delete(bookVO);
 	}
 }

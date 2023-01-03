@@ -11,4 +11,9 @@ public interface BookService {
 	// 상세보기
 	public BookVO detail(BookVO bookVO);
 
+	//책 수정
+	public int update(BookVO bookVO);
+
+	//책 삭제
+	public int delete(BookVO bookVO);
 }

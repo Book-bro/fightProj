@@ -40,4 +40,12 @@
 		SET TITLE=#{title}, CATEGORY=#{category}, PRICE=#{price}, INSERT_DATE=SYSDATE
 		WHERE BOOK_ID = #{bookId}
 	</update>
+	
+	<!-- delete태그는 삭제(delete)쿼리를 실행하기 위한 마이바티스 태그임 -->
+	<delete id="delete" parameterType="bookVO">
+		<![CDATA[
+		DELETE FROM BOOK
+		WHERE BOOK_ID = #{bookId}
+		]]>
+	</delete>
 </mapper>
